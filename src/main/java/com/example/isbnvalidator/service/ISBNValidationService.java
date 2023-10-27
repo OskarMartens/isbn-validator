@@ -82,7 +82,6 @@ public class ISBNValidationService {
 
 
 
-
     private String validate13DigitsISBN(String ISBNNumber) {
         return "The provided number: " + ISBNNumber + " has 13 digits";
     }
