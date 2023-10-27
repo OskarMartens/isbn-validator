@@ -1,6 +1,8 @@
 package com.example.isbnvalidator.service;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,40 +14,62 @@ class ISBNValidationServiceTest {
     public void confirm_10_characters_is_valid_ISBN_without_x() {
 
         String ISBNExample1 = "0143039431";
-        String methodResponse = isbnValidationService.validateISBN(ISBNExample1);
+        ResponseEntity<String> methodResponse1 = isbnValidationService.validateISBN(ISBNExample1);
+        assertEquals(HttpStatus.OK, methodResponse1.getStatusCode());
+        assertEquals("The provided string: " + ISBNExample1 + ", is a valid ISBN", methodResponse1.getBody());
+
 
         String ISBNExample2 = "9185057819";
-        String methodResponse2 = isbnValidationService.validateISBN(ISBNExample2);
-
-
-        assertEquals("The provided string: " + ISBNExample1 + ", is a valid ISBN", methodResponse);
-        assertEquals("The provided string: " + ISBNExample2 + ", is a valid ISBN", methodResponse2);
+        ResponseEntity<String> methodResponse2 = isbnValidationService.validateISBN(ISBNExample2);
+        assertEquals(HttpStatus.OK, methodResponse2.getStatusCode());
+        assertEquals("The provided string: " + ISBNExample2 + ", is a valid ISBN", methodResponse2.getBody());
     }
 
     @Test
-    public void confirm_10_non_digits_string_is_not_valid(){
+    public void confirm_10_non_digits_string_is_NOT_valid(){
 
         String ISBNExample = "abcdefghij";
-        String methodResponse =  isbnValidationService.validateISBN(ISBNExample);
-
-        assertEquals("The provided string: " + ISBNExample + ", does not comprise of digits", methodResponse);
+        ResponseEntity<String> methodResponse =  isbnValidationService.validateISBN(ISBNExample);
+        assertEquals(HttpStatus.BAD_REQUEST, methodResponse.getStatusCode());
+        assertEquals("The provided string: " + ISBNExample + ", does not comprise of digits", methodResponse.getBody());
     }
 
     @Test
-    public void confirm_is_valid_ISBN_with_x(){
+    public void confirm_10_digits_is_valid_ISBN_with_x(){
 
         String ISBNNumber = "043942089X";
-        String methodResponse = isbnValidationService.validateISBN(ISBNNumber);
-
-        assertEquals("The provided string: " + ISBNNumber + ", is a valid ISBN", methodResponse);
+        ResponseEntity <String> methodResponse = isbnValidationService.validateISBN(ISBNNumber);
+        assertEquals(HttpStatus.OK, methodResponse.getStatusCode());
+        assertEquals("The provided string: " + ISBNNumber + ", is a valid ISBN", methodResponse.getBody());
     }
 
     @Test
     public void confirm_is_neither_10_or_13_characters_long(){
 
         String ISBNNumber = "01431";
-        String methodResponse = isbnValidationService.validateISBN(ISBNNumber);
+        ResponseEntity<String> methodResponse = isbnValidationService.validateISBN(ISBNNumber);
+        assertEquals(HttpStatus.BAD_REQUEST, methodResponse.getStatusCode());
+        assertEquals("The string: " + ISBNNumber + " is not valid as it is not 10 nor 13 characters long", methodResponse.getBody());
+    }
 
-        assertEquals("The string: " + ISBNNumber + " is not valid as it is not 10 nor 13 characters long", methodResponse);
+    @Test
+    public void confirm_13_non_digits_string_is_NOT_valid(){
+        String ISBNNumber = "abcdefghijklm";
+        ResponseEntity<String> methodResponse = isbnValidationService.validateISBN(ISBNNumber);
+        assertEquals(HttpStatus.BAD_REQUEST, methodResponse.getStatusCode());
+        assertEquals("The provided string: " + ISBNNumber + ", does not comprise of digits", methodResponse.getBody());
+    }
+
+    @Test
+    public void confirm_13_digits_is_valid(){
+        String mobyDickISBN = "9781503280786";
+        ResponseEntity<String> methodResponse1 = isbnValidationService.validateISBN(mobyDickISBN);
+        assertEquals(HttpStatus.OK, methodResponse1.getStatusCode());
+        assertEquals("The provided string: " + mobyDickISBN + " is a valid ISBN", methodResponse1.getBody());
+
+        String cityOfMyDreamsISBN = "9781572160880";
+        ResponseEntity<String> methodResponse2 = isbnValidationService.validateISBN(cityOfMyDreamsISBN);
+        assertEquals(HttpStatus.OK, methodResponse2.getStatusCode());
+        assertEquals("The provided string: " + cityOfMyDreamsISBN + " is a valid ISBN", methodResponse2.getBody());
     }
 }
