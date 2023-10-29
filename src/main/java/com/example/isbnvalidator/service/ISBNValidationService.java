@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ISBNValidationService {
 
+
     public ResponseEntity<String> validateISBN(String ISBNNumber) {
 
         if(ISBNNumber.length() == 10) {
@@ -31,7 +32,6 @@ public class ISBNValidationService {
         else if (modifiedISBN.toString().matches("[0-9]+") && modifiedISBN.length() == 11 ) {
             return validate10ISBNDigitsWithX(modifiedISBN.toString(), ISBNNumber);
         }
-
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The provided string: " + ISBNNumber + ", does not comprise of digits");
     }
 
@@ -60,7 +60,7 @@ public class ISBNValidationService {
         if(sum % 11 == 0) {
             return ResponseEntity.status(HttpStatus.OK).body("The provided string: " + ISBN + ", is a valid ISBN");
         }
-        return ResponseEntity.status(HttpStatus.OK).body("The provided string: " + ISBN + ", is not a valid ISBN");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The provided string: " + ISBN + ", is not a valid ISBN");
     }
 
 
@@ -102,6 +102,6 @@ public class ISBNValidationService {
         if(sum % 10 == 0) {
             return ResponseEntity.status(HttpStatus.OK).body("The provided string: " + ISBNNumber + " is a valid ISBN");
         }
-        return ResponseEntity.status(HttpStatus.OK).body("The provided number: " + ISBNNumber + " is not a valid ISBN");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The provided number: " + ISBNNumber + " is not a valid ISBN");
     }
 }
