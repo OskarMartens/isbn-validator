@@ -25,12 +25,17 @@ class ISBNValidationServiceTest {
     }
 
     @Test
-    public void confirm_10_non_digits_string_is_NOT_valid(){
+    public void confirm_10_characters_is_NOT_valid_ISBN_without_x() {
 
-        String ISBNExample = "abcdefghij";
-        ResponseEntity<String> methodResponse =  isbnValidationService.validateISBN(ISBNExample);
-        assertEquals(HttpStatus.BAD_REQUEST, methodResponse.getStatusCode());
-        assertEquals("The provided string: " + ISBNExample + ", does not consist of digits", methodResponse.getBody());
+        String nonFunctioningISBN1 = "1503261382";
+        ResponseEntity<String> methodResponse1 = isbnValidationService.validateISBN(nonFunctioningISBN1);
+        assertEquals(HttpStatus.BAD_REQUEST, methodResponse1.getStatusCode());
+        assertEquals("The provided string: " + nonFunctioningISBN1 + ", is not a valid ISBN", methodResponse1.getBody());
+
+        String nonFunctioningISBN2 = "0330508112";
+        ResponseEntity<String> methodResponse2 = isbnValidationService.validateISBN(nonFunctioningISBN2);
+        assertEquals(HttpStatus.BAD_REQUEST, methodResponse2.getStatusCode());
+        assertEquals("The provided string: " + nonFunctioningISBN2 + ", is not a valid ISBN", methodResponse2.getBody());
     }
 
     @Test
@@ -43,7 +48,25 @@ class ISBNValidationServiceTest {
     }
 
     @Test
-    public void confirm_10_digits_is_NOT_valid_ISBN_with_y(){
+    public void confirm_10_digits_is_NOT_valid_ISBN_with_x(){
+
+        String ISBNNumber = "043942087X";
+        ResponseEntity <String> methodResponse = isbnValidationService.validateISBN(ISBNNumber);
+        assertEquals(HttpStatus.BAD_REQUEST, methodResponse.getStatusCode());
+        assertEquals("The provided string: " + ISBNNumber + ", is not a valid ISBN", methodResponse.getBody());
+    }
+
+    @Test
+    public void confirm_10_non_digits_string_is_NOT_valid(){
+
+        String ISBNExample = "abcdefghij";
+        ResponseEntity<String> methodResponse =  isbnValidationService.validateISBN(ISBNExample);
+        assertEquals(HttpStatus.BAD_REQUEST, methodResponse.getStatusCode());
+        assertEquals("The provided string: " + ISBNExample + ", does not consist of digits", methodResponse.getBody());
+    }
+
+    @Test
+    public void confirm_10_digits_is_NOT_valid_ISBN_with_y_ending(){
 
         String ISBNNumber = "043942089Y";
         ResponseEntity <String> methodResponse = isbnValidationService.validateISBN(ISBNNumber);
@@ -88,5 +111,18 @@ class ISBNValidationServiceTest {
         ResponseEntity<String> methodResponse2 = isbnValidationService.validateISBN(cityOfMyDreamsISBN);
         assertEquals(HttpStatus.OK, methodResponse2.getStatusCode());
         assertEquals("The provided string: " + cityOfMyDreamsISBN + " is a valid ISBN", methodResponse2.getBody());
+    }
+
+    @Test
+    public void confirm_13_digits_is_NOT_valid(){
+        String mobyDickISBN = "9781503280783";
+        ResponseEntity<String> methodResponse1 = isbnValidationService.validateISBN(mobyDickISBN);
+        assertEquals(HttpStatus.BAD_REQUEST, methodResponse1.getStatusCode());
+        assertEquals("The provided string: " + mobyDickISBN + " is not a valid ISBN", methodResponse1.getBody());
+
+        String cityOfMyDreamsISBN = "9781572160883";
+        ResponseEntity<String> methodResponse2 = isbnValidationService.validateISBN(cityOfMyDreamsISBN);
+        assertEquals(HttpStatus.BAD_REQUEST, methodResponse2.getStatusCode());
+        assertEquals("The provided string: " + cityOfMyDreamsISBN + " is not a valid ISBN", methodResponse2.getBody());
     }
 }
