@@ -13,7 +13,7 @@ public class ISBN10CharactersValidationService {
             return validate10DigitsISBNWithoutX(ISBNString);
         }
 
-        String modifiedISBN = convertToStringBuilder(ISBNString);
+        String modifiedISBN = convertUsingStringBuilder(ISBNString);
 
         if (modifiedISBN.matches("[0-9]+") && modifiedISBN.length() == 11 ) {
             return validate10ISBNDigitsWithX(modifiedISBN, ISBNString);
@@ -37,7 +37,7 @@ public class ISBN10CharactersValidationService {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The provided string: " + ISBNString + ", is not a valid ISBN.");
     }
 
-    private static String convertToStringBuilder(String ISBNString) {
+    private static String convertUsingStringBuilder(String ISBNString) {
         char lastChar = ISBNString.charAt(ISBNString.length() -1);
         boolean endsWithX = (lastChar == 'X');
 
