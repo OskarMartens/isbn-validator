@@ -9,7 +9,7 @@ public class ISBN13CharacterValidationService {
 
     static ResponseEntity<String> validate13CharactersISBN(String ISBNString) {
         if(!ISBNString.matches("[0-9]+")){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The provided string: " + ISBNString + ", does not consist of digits");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The provided string: " + ISBNString + ", does not consist of digits.");
         }
 
         int sum = 0;
@@ -25,8 +25,8 @@ public class ISBN13CharacterValidationService {
         }
 
         if(sum % 10 == 0) {
-            return ResponseEntity.status(HttpStatus.OK).body("The provided string: " + ISBNString + " is a valid ISBN");
+            return ResponseEntity.status(HttpStatus.OK).body("The provided string: " + ISBNString + " is a valid ISBN.");
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The provided string: " + ISBNString + " is not a valid ISBN");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The provided string: " + ISBNString + " is not a valid ISBN.");
     }
 }
