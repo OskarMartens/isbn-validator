@@ -27,6 +27,6 @@ public class ISBN13CharacterValidationService {
         if(sum % 10 == 0) {
             return ResponseEntity.status(HttpStatus.OK).body("The provided string: " + ISBNString + " is a valid ISBN");
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The provided number: " + ISBNString + " is not a valid ISBN");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The provided string: " + ISBNString + " is not a valid ISBN");
     }
 }
