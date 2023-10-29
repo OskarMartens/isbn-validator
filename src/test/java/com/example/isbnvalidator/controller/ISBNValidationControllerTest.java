@@ -26,17 +26,16 @@ class ISBNValidationControllerTest {
     @Test
     public void confirm_10_digits_without_x_is_valid() throws Exception {
 
-        String isbnNumber = "0143039431";
-        ResultActions response = mockMvc.perform(post("/api/ISBNValidation/" + isbnNumber));
+        String ISBNString = "0143039431";
+        ResultActions response = mockMvc.perform(post("/api/ISBNValidation/" + ISBNString));
         response.andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
     public void confirm_incorrect_url_returns_404() throws Exception {
 
-        String isbnNumber = "0143039431";
-        ResultActions response = mockMvc.perform(post("/api/ISBNValidate/" + isbnNumber));
-
+        String ISBNString = "0143039431";
+        ResultActions response = mockMvc.perform(post("/api/wrong-url/" + ISBNString));
         response.andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 }
