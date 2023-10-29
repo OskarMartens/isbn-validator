@@ -27,7 +27,7 @@ class ISBNValidationControllerTest {
     public void confirm_10_digits_without_x_is_valid() throws Exception {
 
         String ISBNString = "0143039431";
-        ResultActions response = mockMvc.perform(post("/api/ISBNValidation/" + ISBNString));
+        ResultActions response = mockMvc.perform(post("/api/ISBN/" + ISBNString));
         response.andExpect(MockMvcResultMatchers.status().isOk());
     }
 

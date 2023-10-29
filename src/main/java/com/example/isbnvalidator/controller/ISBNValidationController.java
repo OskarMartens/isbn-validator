@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/ISBNValidation")
+@RequestMapping("/api/ISBN/")
 public class ISBNValidationController {
 
     private final ISBNValidationService isbnValidationService;
@@ -19,7 +19,7 @@ public class ISBNValidationController {
         this.isbnValidationService = isbnValidationService;
     }
 
-    @PostMapping("/{ISBNString}")
+    @PostMapping("{ISBNString}")
     public ResponseEntity<String> validateISBN(@PathVariable ("ISBNString") String ISBNString){
         return isbnValidationService.validateISBN(ISBNString);
     }
