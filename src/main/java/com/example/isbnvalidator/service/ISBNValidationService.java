@@ -16,7 +16,6 @@ public class ISBNValidationService {
         else if(ISBNString.length() == 13) {
             return ISBN13CharacterValidationService.validate13CharactersISBN(ISBNString);
         }
-
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The string: " + ISBNString + " is not valid as it is not 10 nor 13 characters long");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The string: " + ISBNString + " is not valid as it is not 10 nor 13 characters long.");
     }
 }
