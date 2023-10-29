@@ -46,18 +46,18 @@ class ISBNValidationServiceTest {
     @Test
     public void confirm_is_neither_10_or_13_characters_long(){
 
-        String ISBNNumber = "01431";
-        ResponseEntity<String> methodResponse = isbnValidationService.validateISBN(ISBNNumber);
+        String ISBNExample = "01431";
+        ResponseEntity<String> methodResponse = isbnValidationService.validateISBN(ISBNExample);
         assertEquals(HttpStatus.BAD_REQUEST, methodResponse.getStatusCode());
-        assertEquals("The string: " + ISBNNumber + " is not valid as it is not 10 nor 13 characters long", methodResponse.getBody());
+        assertEquals("The string: " + ISBNExample + " is not valid as it is not 10 nor 13 characters long", methodResponse.getBody());
     }
 
     @Test
     public void confirm_13_non_digits_string_is_NOT_valid(){
-        String ISBNNumber = "abcdefghijklm";
-        ResponseEntity<String> methodResponse = isbnValidationService.validateISBN(ISBNNumber);
+        String ISBNExample = "abcdefghijklm";
+        ResponseEntity<String> methodResponse = isbnValidationService.validateISBN(ISBNExample);
         assertEquals(HttpStatus.BAD_REQUEST, methodResponse.getStatusCode());
-        assertEquals("The provided string: " + ISBNNumber + ", does not comprise of digits", methodResponse.getBody());
+        assertEquals("The provided string: " + ISBNExample + ", does not comprise of digits", methodResponse.getBody());
     }
 
     @Test
