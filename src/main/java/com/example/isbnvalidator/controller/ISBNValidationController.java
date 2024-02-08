@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/api/ISBN/")
 public class ISBNValidationController {
@@ -20,7 +22,7 @@ public class ISBNValidationController {
     }
 
     @PostMapping("{ISBNString}")
-    public ResponseEntity<String> validateISBN(@PathVariable ("ISBNString") String ISBNString){
+    public ResponseEntity<String> validateISBN(@PathVariable ("ISBNString") String ISBNString) throws IOException, InterruptedException {
         return isbnValidationService.validateISBN(ISBNString);
     }
 }

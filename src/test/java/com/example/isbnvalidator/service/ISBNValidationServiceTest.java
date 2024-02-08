@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ISBNValidationServiceTest {
@@ -11,7 +13,7 @@ class ISBNValidationServiceTest {
     ISBNValidationService isbnValidationService = new ISBNValidationService();
 
     @Test
-    public void confirm_is_neither_10_or_13_characters_long(){
+    public void confirm_is_neither_10_or_13_characters_long() throws IOException, InterruptedException {
 
         String ISBNShortExample = "01431";
         ResponseEntity<String> methodResponse = isbnValidationService.validateISBN(ISBNShortExample);
